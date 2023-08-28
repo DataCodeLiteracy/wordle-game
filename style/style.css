@@ -1,0 +1,99 @@
+:root {
+  /* color */
+  --text-color: white;
+  --bg-color: black;
+  --keyboard-color: gray;
+  --boxBorder-color: rgba(149, 146, 146, 0.31);
+
+  /* size */
+  --icon-size: 25px;
+}
+
+body {
+  box-sizing: border-box;
+  width: 50%;
+  height: 100%;
+  margin: auto;
+  padding: 20px;
+  background-color: var(--bg-color);
+  font-family: 'Oswald', sans-serif;
+}
+
+button {
+  outline: none;
+  border: none;
+  cursor: pointer;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  color: var(--text-color);
+}
+
+.icon {
+  font-size: var(--icon-size);
+}
+
+.title {
+  font-size: 30px;
+  margin-left: 70px;
+}
+
+.etc-icons {
+  display: flex;
+  gap: 10px;
+}
+
+.stage {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin: auto;
+  margin-top: 70px;
+  height: 300px;
+  width: 250px;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  height: 16.6%;
+}
+
+.column {
+  border: 1px solid var(--boxBorder-color);
+  width: 25%;
+  height: 100%;
+}
+
+.keyboard {
+  display: flex;
+  flex-direction: column;
+  height: 150px;
+  margin: auto;
+  margin-top: 100px;
+  width: 430px;
+  gap: 5px;
+}
+
+.keyboard-row {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  height: 33%;
+}
+
+.keyboard-row:nth-child(2) {
+  padding: 0 20px 0 20px;
+}
+
+.key {
+  background-color: var(--keyboard-color);
+  color: var(--text-color);
+  font-weight: bold;
+  gap: 5px;
+  width: 430px;
+  border-radius: 3px;
+}
