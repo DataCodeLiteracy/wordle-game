@@ -50,22 +50,27 @@ nav {
   flex-direction: column;
   gap: 5px;
   margin: auto;
-  margin-top: 70px;
+  margin-top: 10px;
   height: 300px;
   width: 250px;
 }
 
-.row {
+.stage-row {
   display: flex;
   flex-direction: row;
   gap: 5px;
   height: 16.6%;
 }
 
-.column {
+.stage-column {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border: 1px solid var(--boxBorder-color);
   width: 25%;
   height: 100%;
+  color: var(--text-color);
+  font-size: 25px;
 }
 
 .keyboard {
@@ -73,7 +78,7 @@ nav {
   flex-direction: column;
   height: 150px;
   margin: auto;
-  margin-top: 100px;
+  margin-top: 30px;
   width: 430px;
   gap: 5px;
 }
@@ -96,4 +101,32 @@ nav {
   gap: 5px;
   width: 430px;
   border-radius: 3px;
+}
+
+.key.active {
+  background-color: yellowgreen;
+}
+
+.timer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  margin-top: 15px;
+  width: 100px;
+  height: 30px;
+  color: white;
+}
+
+.display-gameover {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  width: 200px;
+  height: 100px;
 }
