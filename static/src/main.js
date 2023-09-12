@@ -57,30 +57,37 @@ const appStart = () => {
       const selectClick = e.target
       const clickKey = e.target.getAttribute('data-key')
       const clickKeyCode = clickKey && clickKey.charCodeAt(0)
+      console.log(clickKeyCode)
+
       selectClick.classList.add('active')
       setTimeout(() => {
         selectClick.classList.remove('active')
       }, 200)
 
       if (clickKey === 'BACKSPACE') handleBackspace()
-      else if (index === 5) {
-        if (clickKey === 'ENTER') {
-          handleEnterKey()
+
+      if (clickKey === 'ENTER') {
+        if (index === 5) {
+          handleEnter()
         }
-        return
-      } else if (clickKeyCode >= 65 && clickKeyCode <= 90) {
-        const thisBlock = document.querySelector(
-          `.stage-column[data-index="${attempts}${index}"]`
-        )
-        thisBlock.innerText = clickKey
-        index = index + 1
+      } else {
+        if (clickKeyCode >= 65 && clickKeyCode <= 90) {
+          const thisBlock = document.querySelector(
+            `.stage-column[data-index="${attempts}${index}"]`
+          )
+          if (index === 5) {
+            return
+          }
+          thisBlock.innerText = clickKey
+          index = index + 1
+        }
       }
     })
   }
 
   handleSelectClick()
 
-  const handleEnterKey = async () => {
+  const handleEnter = async () => {
     let answerCount = 0
     const response = await fetch('/answer')
     const CORRECT_ANSWER = await response.json()
@@ -102,7 +109,7 @@ const appStart = () => {
     if (answerCount === 5) gameOver()
     else nextLine()
 
-    console.log('엔터키 입력!')
+    console.log('엔터 입력!')
   }
 
   const handleBackspace = () => {
@@ -123,7 +130,7 @@ const appStart = () => {
     if (e.key === 'Backspace') handleBackspace()
     else if (index === 5) {
       if (e.key === 'Enter') {
-        handleEnterKey()
+        handleEnter()
       }
       return
     } else if (keyCode >= 65 && keyCode <= 90) {
