@@ -1,6 +1,9 @@
 /**
  * 요구사항
  *
+ * (버그)
+ * - 키보드로만 입력하면 문제가 없으나, 클릭을 하고 난 뒤에 키보드로 Enter를 입력하게 되면 마지막에 클릭했던 문자가 계속 입력됨..
+ *
  * (선택) 키보드 클릭으로도 입력 - 가능하게는 했지만 버그 존재..
  *
  * 해결
@@ -44,6 +47,9 @@ const appStart = () => {
 
   const handleSelectKey = (key) => {
     const selectKey = document.querySelector(`.key[data-key="${key}"]`)
+
+    if (!selectKey) return
+
     selectKey.classList.add('active')
     document.addEventListener('keyup', (e) => {
       if (e.key.toUpperCase() === key) {
@@ -55,9 +61,8 @@ const appStart = () => {
   const handleSelectClick = () => {
     document.addEventListener('click', (e) => {
       const selectClick = e.target
-      const clickKey = e.target.getAttribute('data-key')
+      let clickKey = e.target.getAttribute('data-key')
       const clickKeyCode = clickKey && clickKey.charCodeAt(0)
-      console.log(clickKeyCode)
 
       selectClick.classList.add('active')
       setTimeout(() => {
@@ -67,7 +72,7 @@ const appStart = () => {
       if (clickKey === 'BACKSPACE') handleBackspace()
 
       if (clickKey === 'ENTER') {
-        if (index === 5) {
+        if (index >= 5) {
           handleEnter()
         }
       } else {
@@ -75,7 +80,7 @@ const appStart = () => {
           const thisBlock = document.querySelector(
             `.stage-column[data-index="${attempts}${index}"]`
           )
-          if (index === 5) {
+          if (index >= 5) {
             return
           }
           thisBlock.innerText = clickKey
@@ -99,6 +104,13 @@ const appStart = () => {
       if (CORRECT_ANSWER[i] === block.innerText) {
         answerCount = answerCount + 1
         block.style.background = '#6AAA64'
+
+        const keyBoard = document.querySelectorAll('.key')
+        const keyBoardArr = [...keyBoard].map((item) => {
+          if (CORRECT_ANSWER[i] === item.dataset.key) {
+            item.style.background = '#6AAA64'
+          }
+        })
       } else if (CORRECT_ANSWER.includes(block.innerText)) {
         block.style.background = '#C9B458'
       } else {
@@ -108,8 +120,6 @@ const appStart = () => {
 
     if (answerCount === 5) gameOver()
     else nextLine()
-
-    console.log('엔터 입력!')
   }
 
   const handleBackspace = () => {
