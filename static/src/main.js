@@ -27,22 +27,17 @@ let attempts = 0
 const appStart = () => {
   handleTimer(timer, TIME)
 
+  setTimeout(() => {
+    if (timer.textContent === '시간초과') {
+      gameOver()
+    }
+  }, (TIME + 1) * 1000)
+
   const nextLine = () => {
-    if (attempts === 6) return gameOver()
     attempts = attempts + 1
     index = 0
-  }
 
-  const displayGameOver = () => {
-    const div = document.createElement('div')
-    div.classList.add('display-gameover')
-    div.innerText = '게임이 종료되었습니다.'
-    document.body.appendChild(div)
-  }
-
-  const gameOver = () => {
-    window.removeEventListener('keydown', handleKeydown)
-    displayGameOver()
+    if (attempts === 6) return gameOver()
   }
 
   const handleSelectKey = (key) => {
@@ -119,7 +114,10 @@ const appStart = () => {
     }
 
     if (answerCount === 5) gameOver()
-    else nextLine()
+    if (answerCount < 5) {
+      displayRetry()
+      nextLine()
+    } else nextLine()
   }
 
   const handleBackspace = () => {
@@ -154,6 +152,28 @@ const appStart = () => {
   }
 
   document.addEventListener('keydown', handleKeydown)
+
+  const displayGameOver = () => {
+    const div = document.createElement('div')
+    div.classList.add('display-gameOver')
+    div.innerText = '게임이 종료되었습니다.'
+    document.body.appendChild(div)
+  }
+
+  const displayRetry = () => {
+    const div = document.createElement('div')
+    div.classList.add('display-retry')
+    div.innerText = '다시 시도해주세요.'
+    document.body.appendChild(div)
+    setTimeout(() => {
+      div.classList.remove('display-retry')
+    }, 1500)
+  }
+
+  const gameOver = () => {
+    document.removeEventListener('keydown', handleKeydown)
+    displayGameOver()
+  }
 }
 
 appStart()
